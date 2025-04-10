@@ -1,2 +1,1 @@
-# hackathon350
-# hackathon350
+# For INFOST350 Final Hackathon
