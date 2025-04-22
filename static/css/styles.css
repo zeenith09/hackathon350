@@ -1,1 +1,39 @@
 /* style tempalates here if needed */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.main-layout {
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    width: 75%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.container-title {
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 5px;
+}
+
+.container-subtitle {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.shopping-cart {
+    width: 25%;
+    height:max-content;
+    padding: 20px;
+    background-color: #c86b6e;
+    box-sizing: border-box;
+    border-left: 2px solid #ccc;
+    overflow-y: auto;
+}
