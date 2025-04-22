@@ -5,3 +5,11 @@ urlpatterns = [
     path('', views.index, name='index'),
     # TBA once fill out views
 ]
+
+### To run needa also do prod_init since we added it as a command
+# python manage.py makemigrations
+# python manage.py migrate
+# python manage.py prod_init
+# python manage.py runserver
+# Need to fill out views, style.css, app.js, and index.html
+###
