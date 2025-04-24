@@ -16,6 +16,7 @@ body, html { /* this is AI */
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    border: 1px solid black;
 }
 
 .container-title {
@@ -37,4 +38,20 @@ body, html { /* this is AI */
     box-sizing: border-box;
     border-left: 2px solid #ccc;
     overflow-y: auto;
+}
+
+button{
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+    background-color: lightgray;
+}
+
+button:hover{
+    transform: scale(1.02);
+    cursor:pointer;
+}
+
+button:active{
+    background-color: rgb(78, 77, 77);
+    color:white;
 }
