@@ -1,4 +1,4 @@
-{ % load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,34 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-<body>
 
+<body>
+    <div class="main-layout">
+        <div class="container">
+            <h3 class="container-title">Window Team 3's Store</h3>
+            <h4 class="container-subtitle">{{ products.count }} product(s) in stock</h4>
+            <list class="product-list">
+                {% for product in products %}
+                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button">Add to Cart</span></li>
+                {% endfor %}
+            </list>
+        </div>
+        <div class="shopping-cart">
+            <h3 class="container-title">My Shopping Cart:</h3>
+            <h4 class="container-subtitle">{{ cart.count }} product(s) in cart</h4>
+            <hr />
+            <div class="shopping-cart-contents">
+                <list class="shopping-cart-list">
+                    {% for item in cart %}
+                        <li class="shopping-cart-item">{{ item.name }}</li>
+                    {% empty %}
+                        <span>Your cart has no items!</span>
+                    {% endfor %}
+                </list>
+            </div>
+            <button type="button" class="checkout-button">Check Out</button>
+        </div>
+    </div>
     <script src="{% static 'js/app.js' %}"></script>
 </body>
 
