@@ -21,8 +21,8 @@ def add_to_cart(request, product_id):
 def remove_from_cart(request, item_id):
     pass
 
-def view_cart(request):
-    cart = Cart.objects.all().values()
+def view_cart(request, cart_id):
+    cart = get_object_or_404(Cart, id=cart_id)
     template = loader.get_template('cart.html')
     context = {
         'cart': cart

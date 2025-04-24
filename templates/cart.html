@@ -14,12 +14,12 @@
     <div class="main-layout">
         <div class="shopping-cart-full">
             <h3 class="container-title">My Shopping Cart:</h3>
-            <h4 class="container-subtitle">{{ cart.count }} product(s) in cart</h4>
+            <h4 class="container-subtitle">{{ cart.get_items.count }} product(s) in cart</h4>
             <hr />
             <div class="shopping-cart-contents">
                 <list class="shopping-cart-list">
-                    {% for item in cart %}
-                        <li class="shopping-cart-item">{{ item.name }}</li>
+                    {% for item in cart.get_items %}
+                        <li class="shopping-cart-item">{{ item.product.name }} | {{ item.product.price }} | x{{ item.quantity }}</li>
                     {% empty %}
                         <span>Your cart has no items!</span>
                     {% endfor %}
