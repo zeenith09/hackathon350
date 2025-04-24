@@ -22,7 +22,12 @@ def remove_from_cart(request, item_id):
     pass
 
 def view_cart(request):
-    pass
+    cart = Cart.objects.all().values()
+    template = loader.get_template('cart.html')
+    context = {
+        'cart': cart
+    }
+    return HttpResponse(template.render(context, request))
 
 def get_product_price(request, product_id):
     pass

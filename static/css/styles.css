@@ -38,3 +38,11 @@ body, html { /* this is AI */
     border-left: 2px solid #ccc;
     overflow-y: auto;
 }
+
+.shopping-cart-full { /* placeholder css to get a general vibe of what I was looking at for this */
+    margin: auto;
+    width: 85%;
+    height: max-content;
+    background-color: khaki;
+    padding: 20px
+}

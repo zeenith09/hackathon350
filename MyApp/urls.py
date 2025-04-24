@@ -4,7 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # TBA once fill out views
+    path('cart', views.view_cart, name='cart')
 ]
 urlpatterns += staticfiles_urlpatterns()
 ### To run needa also do prod_init since we added it as a command
