@@ -37,10 +37,11 @@
                     </thead>
                     <tbody>
                         {% for item in cart.get_items %}
-                        <tr>
+                        <tr id="cart-item-{{ item.id }}">
                             <td>{{ item.product.name }}</td>
                             <td>${{ item.product.price }}</td>
                             <td>{{ item.quantity }}</td>
+                            <td><button type="button" class="remove-button" data-product="{{ item.id }}">Remove</button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
