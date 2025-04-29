@@ -1,4 +1,6 @@
-/* style tempalates here if needed */
+
+/*CSS is commented out here, moved to internal CSS on index.html*/
+/*/* style tempalates here if needed */
 /* ai-generated code is marked */
 body, html { /* this is AI */
     margin: 0;
@@ -55,3 +57,4 @@ button:active{
     background-color: rgb(78, 77, 77);
     color:white;
 }
+*/
