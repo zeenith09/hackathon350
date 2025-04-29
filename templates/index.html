@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Window Team 3's Store</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 
@@ -18,7 +19,7 @@
             <h4 class="container-subtitle">{{ products.count }} product(s) in stock</h4>
             <list class="product-list">
                 {% for product in products %}
-                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button">Add to Cart</span></li>
+                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button">Add to Cart <i class="fa-solid fa-cart-plus"></i> </span></li>
                 {% endfor %}
             </list>
         </div>
@@ -35,7 +36,7 @@
                     {% endfor %}
                 </list>
             </div>
-            <button type="button" class="checkout-button">Check Out</button>
+            <button type="button" class="checkout-button">Check Out <i class="fa-solid fa-cart-shopping"></i> </button>
         </div>
     </div>
     <script src="{% static 'js/app.js' %}"></script>
