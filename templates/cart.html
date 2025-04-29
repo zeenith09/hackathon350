@@ -17,13 +17,34 @@
             <h4 class="container-subtitle">{{ cart.get_items.count }} product(s) in cart</h4>
             <hr />
             <div class="shopping-cart-contents">
-                <list class="shopping-cart-list">
-                    {% for item in cart.get_items %}
-                        <li class="shopping-cart-item">{{ item.product.name }} | {{ item.product.price }} | x{{ item.quantity }}</li>
-                    {% empty %}
-                        <span>Your cart has no items!</span>
-                    {% endfor %}
-                </list>
+                <table class="shopping-cart-table">
+                    <thead>
+                        <tr class="shopping-cart-table-header">
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.get_items %}
+                        <tr class="shopping-cart-item">
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Your cart is empty!</td>
+                        </tr>
+                        {% endfor %}
+                        {% if cart.get_items.count > 0 %}
+                        <tr>
+                            <td colspan="2"><strong>Total Price:</strong></td>
+                            <td><!--add functionality here--></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
             </div>
             <button type="button" class="checkout-button">Check Out</button>
         </div>

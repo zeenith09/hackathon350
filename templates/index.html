@@ -18,22 +18,33 @@
             <h4 class="container-subtitle">{{ products.count }} product(s) in stock</h4>
             <list class="product-list">
                 {% for product in products %}
-                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button">Add to Cart</span></li>
+                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button" data-product="{{ product.id }}">Add to Cart</button></li>
                 {% endfor %}
             </list>
         </div>
         <div class="shopping-cart">
             <h3 class="container-title">My Shopping Cart:</h3>
-            <h4 class="container-subtitle">{{ cart.count }} product(s) in cart</h4>
+            <h4 class="container-subtitle">{{ cart.get_items.count }} product(s) in cart</h4>
             <hr />
             <div class="shopping-cart-contents">
-                <list class="shopping-cart-list">
-                    {% for item in cart %}
-                        <li class="shopping-cart-item">{{ item.name }}</li>
-                    {% empty %}
-                        <span>Your cart has no items!</span>
-                    {% endfor %}
-                </list>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.get_items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>${{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <button type="button" class="checkout-button">Check Out</button>
         </div>

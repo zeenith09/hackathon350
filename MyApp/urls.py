@@ -4,7 +4,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('cart/<int:cart_id>/', views.view_cart, name='cart')
+    path('cart/<int:cart_id>/', views.view_cart, name='cart'),
+    path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart')
 ]
 urlpatterns += staticfiles_urlpatterns()
 ### To run needa also do prod_init since we added it as a command
