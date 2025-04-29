@@ -18,12 +18,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector(".shopping-cart .container-subtitle").textContent =
                         `${data.cart_count} product(s) in cart`;
 
-                    // Optionally update cart list with a placeholder
-                    const cartList = document.querySelector(".shopping-cart-list");
-                    const newItem = document.createElement("li");
-                    newItem.textContent = data.last_item;
-                    newItem.classList.add("shopping-cart-item");
-                    cartList.appendChild(newItem);
+                    const tableBody = document.querySelector(".shopping-cart-contents tbody");
+                    if (data.new_item) {
+                        const newRow = document.createElement("tr");
+                        newRow.innerHTML = `
+                            <td>${data.name}</td>
+                            <td>$${data.price}</td>
+                            <td>${data.quantity}</td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    }
+                    else {
+                        const tableRows = document.querySelectorAll(".shopping-cart-contents tbody tr");
+                        tableRows.forEach(row => {
+                            const tableRowTds = row.querySelectorAll("td");
+                            if (tableRowTds[0].textContent == data.name) {
+                                tableRowTds[2].textContent = data.quantity;
+                            }
+                        })
+                    }
                 }
             });
         });
