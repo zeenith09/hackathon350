@@ -34,7 +34,17 @@ def add_to_cart(request, product_id):
     return JsonResponse({"message": "Item added", "cart_count": cart.get_items().count(), "new_item": created, "name": cart_item.product.name, "price": cart_item.product.price, "quantity": cart_item.quantity})
 
 def remove_from_cart(request, item_id):
-    pass
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You must be logged in"}, status=403)
+    
+    cart = get_object_or_404(Cart, user=request.user)
+    cart_item = get_object_or_404(CartItem, id=item_id)
+
+    # In theory we dont need to check that cart and cart_item are valid because the get_object_or_404 function does that for us
+
+    cart_item.delete()
+    cart.save()
+    return JsonResponse({"message": "Item removed"})
 
 def view_cart(request, cart_id):
     cart = get_object_or_404(Cart, id=cart_id)
