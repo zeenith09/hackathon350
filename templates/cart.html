@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Team 3's Store | Cart</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+
+<body>
+    <div class="main-layout">
+        <div class="shopping-cart-full">
+            <h3 class="container-title">My Shopping Cart:</h3>
+            <h4 class="container-subtitle">{{ cart.get_items.count }} product(s) in cart</h4>
+            <hr />
+            <div class="shopping-cart-contents">
+                <table class="shopping-cart-table">
+                    <thead>
+                        <tr class="shopping-cart-table-header">
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="shopping-cart-tbody">
+                        {% for item in cart.get_items %}
+                        <tr class="shopping-cart-item">
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Your cart is empty!</td>
+                        </tr>
+                        {% endfor %}
+                        {% if cart.get_items.count > 0 %}
+                        <tr>
+                            <td colspan="2"><strong>Total Price:</strong></td>
+                            <td><!--add functionality here--></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="checkout-button">Check Out</button>
+        </div>
+    </div>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

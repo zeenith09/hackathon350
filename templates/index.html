@@ -7,37 +7,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Window Team 3's Store</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-
 <body>
-    <div class="main-layout">
-        <div class="container">
-            <h3 class="container-title">Window Team 3's Store</h3>
-            <h4 class="container-subtitle">{{ products.count }} product(s) in stock</h4>
-            <list class="product-list">
-                {% for product in products %}
-                    <li class="product">{{ product.name }} - ${{ product.price }} <button type="button" class="add-button">Add to Cart</span></li>
-                {% endfor %}
-            </list>
-        </div>
-        <div class="shopping-cart">
-            <h3 class="container-title">My Shopping Cart:</h3>
-            <h4 class="container-subtitle">{{ cart.count }} product(s) in cart</h4>
-            <hr />
-            <div class="shopping-cart-contents">
-                <list class="shopping-cart-list">
-                    {% for item in cart %}
-                        <li class="shopping-cart-item">{{ item.name }}</li>
-                    {% empty %}
-                        <span>Your cart has no items!</span>
-                    {% endfor %}
-                </list>
-            </div>
-            <button type="button" class="checkout-button">Check Out</button>
-        </div>
+
+    <!-- Top section -->
+    <div class="header">
+        Window Team 3's Store
     </div>
+
+    <!-- Split left, right -->
+    <div class="content">
+
+        <!-- Left side products -->
+        <div class="product-list">
+            <h2>Available Products</h2>
+            <ul id="product-items">
+                {% for product in products %}
+                <li>
+                    <label>
+                        <input type="radio" name="product_id" value="{{ product.id }}" class="product-radio">
+                        {{ product.name }} - ${{ product.price|floatformat:2 }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <button type="button" id="add-to-cart-btn" class="add-button">Add Selected Items to Cart <i
+                    class="fa-solid fa-cart-plus"></i> </button>
+        </div>
+
+        <!-- Right side cart -->
+        <div class="cart-list">
+            <h2>Your Cart</h2>
+            <ul id="cart-items">
+                {% for item in cart.get_items %}
+                <li id="cart-item-{{ item.id }}">
+                    <label>
+                        <input type="radio" name="remove_item" value="{{ item.id }}" class="cart-radio">
+                        {{ item.product.name }} - ${{ item.product.price|floatformat:2 }} (Qty: {{ item.quantity }})
+                    </label>
+                </li>
+                {% empty %}
+                <li id="empty-cart-message">Your cart is empty!</li>
+                {% endfor %}
+            </ul>
+            <button type="button" id="remove-from-cart-btn" class="remove-button">Remove Selected Items <i
+                    class="fa-solid fa-cart-arrow-down"></i> </button>
+        </div>
+
+    </div>
+
+    <!-- Bottom section -->
+    <div class="footer">
+        <button type="button" id="checkout-btn" class="checkout-button">Check Out <i
+                class="fa-solid fa-cart-shopping"></i> </button>
+    </div>
+
     <script src="{% static 'js/app.js' %}"></script>
 </body>
 

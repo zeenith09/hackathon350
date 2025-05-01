@@ -1,0 +1,249 @@
+{% load static %}
+{% load cart_filters %}
+
+<!-- I vibed this since we ran out of time -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Window Team 3's Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            background-color: #2a2a2a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .checkout-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .cart-summary {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .back-button,
+        .confirm-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-size: 16px;
+        }
+
+        .back-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+
+        .confirm-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+        }
+
+        button:active {
+            background-color: rgb(78, 77, 77);
+            color: white;
+        }
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        .footer {
+            background-color: #2a2a2a;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top section -->
+    <div class="header">
+        Window Team 3's Store - Checkout
+    </div>
+
+    <!-- Checkout content -->
+    <div class="checkout-content">
+        <h2>Your Cart Summary</h2>
+
+        {% if cart_items %}
+        <div class="cart-summary">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>${{ item.product.price|floatformat:2 }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.product.price|multiply:item.quantity|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="3">Total Amount Due:</td>
+                        <td>${{ total|floatformat:2 }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div id="checkout-controls">
+            <p>Are you sure you're ready to check out?</p>
+            <div class="buttons">
+                <button class="back-button" id="back-button">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </button>
+                <button class="confirm-button" id="confirm-button">
+                    Complete Purchase <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="thank-you-message" class="thank-you-message">
+            <p>Thank you for shopping!</p>
+            <p>Your order has been placed.</p>
+            <p><a href="/">Return to shop</a></p>
+        </div>
+        {% else %}
+        <div class="empty-cart-message">
+            <p>Your cart is empty. Add something to it before checking out.</p>
+            <div class="buttons">
+                <button class="back-button" id="back-button">
+                    <i class="fas fa-arrow-left"></i> Return to Shop
+                </button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <button type="button" class="checkout-button" id="back-to-shop" style="display: none;">
+            Back to Shop <i class="fa-solid fa-store"></i>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const backButton = document.getElementById('back-button');
+            const confirmButton = document.getElementById('confirm-button');
+            const checkoutControls = document.getElementById('checkout-controls');
+            const thankYouMessage = document.getElementById('thank-you-message');
+            const backToShopButton = document.getElementById('back-to-shop');
+
+            if (backButton) {
+                backButton.addEventListener('click', function () {
+                    window.location.href = '/';
+                });
+            }
+
+            if (confirmButton) {
+                confirmButton.addEventListener('click', function () {
+                    // Send AJAX request to complete the order
+                    fetch('/checkout/', {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Show thank you message
+                                checkoutControls.style.display = 'none';
+                                thankYouMessage.style.display = 'block';
+                                backToShopButton.style.display = 'inline-block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error completing checkout:', error);
+                        });
+                });
+            }
+
+            if (backToShopButton) {
+                backToShopButton.addEventListener('click', function () {
+                    window.location.href = '/';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

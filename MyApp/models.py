@@ -13,6 +13,7 @@ class Product(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    #items = models.ForeignKey(CartItem, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -20,6 +21,9 @@ class Cart(models.Model):
     
     def get_total_price(self):
         return sum(item.product.price * item.quantity for item in self.cartitem_set.all())
+
+    def get_items(self):
+        return self.cartitem_set.all()
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

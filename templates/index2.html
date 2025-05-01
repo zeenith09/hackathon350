@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Team 3's Store</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            background-color: #2a2a2a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            min-height: 70vh;
+        }
+
+        .product-list, .cart-list {
+            width: 48%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background-color: #2a2a2a;
+            color: white;
+            text-align: center;
+            padding: 30px;
+			margin-top:40px;
+			font-size:1.4rem;
+			
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remove-button {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .checkout-button {
+            background-color: transparent;
+            color: white;
+            font-size: 1.4em;
+            padding: 12px 36px;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+			text-align: center;
+        }
+		.checkout-button:hover {
+			background-color: white;
+			color: #2a2a2a;
+		}
+    </style>
+</head>
+<body>
+
+    <!-- Top section -->
+    <div class="header">
+        Window Team 3's Store
+    </div>
+
+    <!-- Split left, right -->
+    <div class="content">
+
+        <!-- Left side products -->
+        <div class="product-list">
+            <h2>Available Products</h2>
+            <form method="POST">
+				{% csrf_token %}
+				<ul>
+					{% for product in products %}
+						<li>
+							<label>
+								<input type="radio" name="product_id" value="{{ product.id }}" required>
+								{{ product.name }} - ${{ product.price|floatformat:2 }}
+							</label>
+						</li>
+					{% endfor %}
+				</ul>
+				<button type="submit" class="add-button">Add Selected Items to Cart</button>
+            </form>
+        </div>
+
+        <!-- Right side cart -->
+        <div class="cart-list">
+            <h2>Your Cart</h2>
+            <form method="POST">
+				{% csrf_token %}
+                <ul>
+                    {% for item in cart %}
+                        <li>
+                            <label>
+                                <input type="radio" name="remove_item">
+                                {{ item.name }}
+                            </label>
+                        </li>
+                    {% empty %}
+                        <li>Your cart is empty!</li>
+                    {% endfor %}
+                </ul>
+                <button type="submit" class="remove-button">Remove Selected Items</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Bottom section -->
+    <div class="footer">
+        <form method="POST" action="{% url 'clear_cart' %}">
+            {% csrf_token %}
+            <button type="submit" class="checkout-button">Check Out</button>
+        </form>
+    </div>
+
+</body>
+</html>
