@@ -1,48 +1,105 @@
-/* style tempalates here if needed */
+/*CSS is commented out here, moved to internal CSS on index.html*/
+/*/* style tempalates here if needed */
 /* ai-generated code is marked */
-body, html { /* this is AI */
+body {
     margin: 0;
-    padding: 0;
-    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
 }
 
-.main-layout { /* this is AI */
-    display: flex;
-    height: 100vh;
-}
-
-.container { /* this is AI */
-    width: 75%;
+.header {
+    background-color: #2a2a2a;
+    color: white;
     padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
+    text-align: center;
+    font-size: 2em;
 }
 
-.container-title {
-    margin-top: 0;
-    padding-top: 0;
-    margin-bottom: 5px;
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    min-height: 70vh;
 }
 
-.container-subtitle {
-    margin-top: 0;
+.product-list,
+.cart-list {
+    width: 48%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
     margin-bottom: 10px;
 }
 
-.shopping-cart { /* this is mostly AI, except for the background-color and border */
-    width: 25%;
-    height:max-content;
-    padding: 20px;
-    background-color: #c86b6e;
-    box-sizing: border-box;
-    border-left: 2px solid #ccc;
-    overflow-y: auto;
+.footer {
+    background-color: #2a2a2a;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+    font-size: 1.4rem;
+
 }
 
-.shopping-cart-full { /* placeholder css to get a general vibe of what I was looking at for this */
-    margin: auto;
-    width: 85%;
-    height: max-content;
-    background-color: khaki;
-    padding: 20px
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.add-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.checkout-button {
+    background-color: transparent;
+    color: white;
+    font-size: 1.4em;
+    padding: 12px 36px;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.checkout-button:hover {
+    background-color: white;
+    color: #2a2a2a;
+}
+
+button {
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+    background-color: lightgray;
+}
+
+button:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+button:active {
+    background-color: rgb(78, 77, 77);
+    color: white;
 }

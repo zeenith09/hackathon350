@@ -6,9 +6,13 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('cart/<int:cart_id>/', views.view_cart, name='cart'),
     path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    path('cart/remove/<int:cart_item_id>/', views.remove_from_cart, name='remove_from_cart')
+    path('cart/remove/<int:cart_item_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('product/price/<int:product_id>/', views.get_product_price, name='product_price'),
+    path('checkout/', views.checkout, name='checkout'),
 ]
+
 urlpatterns += staticfiles_urlpatterns()
+
 ### To run needa also do prod_init since we added it as a command
 # python manage.py makemigrations
 # python manage.py migrate
